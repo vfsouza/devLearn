@@ -71,9 +71,9 @@ public class VideoDAO {
 	public void add(Video v) {
 		try {  
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO video (id, titulo, url, duracao, descricao, moduloId) "
+			st.executeUpdate("INSERT INTO video (id, titulo, url, duracao, descricao, moduloid) "
 				       + "VALUES(" + v.getId() + ", '" + v.getTitulo() + "', '" + v.getUrl() 
-				       + "', '" + v.getDuracao() + "', '" + v.getDescricao() + "', '" + v.getModuloId() + ");");
+				       + "', " + v.getDuracao() + ", '" + v.getDescricao() + "', " + v.getModuloId() + ");");
 			st.close();
 		} catch (SQLException u) {  
 			throw new RuntimeException(u);

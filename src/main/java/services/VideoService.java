@@ -2,13 +2,11 @@ package services;
 
 import daos.VideoDAO;
 import models.Video;
-import models.Modulo;
 import spark.Request;
 import spark.Response;
 
 public class VideoService {
 	private VideoDAO VideoDAO;
-	private Modulo modulo;
 
 	public VideoService() {
 		VideoDAO = new VideoDAO();
@@ -20,17 +18,19 @@ public class VideoService {
 		String url = request.queryParams("url").toString();
 		int horas = Integer.parseInt(request.queryParams("horas"));
 		String descricao = request.queryParams("descricao").toString();
-		
-		response.header("Access-Control-Allow-Origin", "*");
+		int idModulo = Integer.parseInt(request.queryParams("idModulo"));
+
+	    response.header("Access-Control-Allow-Origin", "*");
+	    response.header("Content-Type", "application/json");
+	    response.header("Content-Encoding", "UTF-8");
 
 		int id = VideoDAO.getMaxIdVideo();
-		int moduloId = modulo.getId();//talvez funcione
 		
-		Video video = new Video(id, titulo, url, horas, descricao, moduloId);
+		Video video = new Video(id, titulo, url, horas, descricao, idModulo);
 
 		VideoDAO.add(video);
 
-		response.status(201); // 201 Created
+		response.status(201);
 		return 0;
 	}
 }

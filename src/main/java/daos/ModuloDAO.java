@@ -51,7 +51,7 @@ public class ModuloDAO {
 		
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM modulo");
+			ResultSet rs = st.executeQuery("SELECT id FROM modulo");
 			rs.last();
 			maxId = rs.getInt("id");
 			System.out.println(maxId);
@@ -71,9 +71,9 @@ public class ModuloDAO {
 	public void add(Modulo m) {
 		try {  
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO modulo (id, horas, nome, topico, cursoId) "
-				       + "VALUES(" + m.getId() + ", '" + m.getHoras() + "', '" + m.getNome() 
-				       + "', '" + m.getTopico() + "', '" +  m.getCursoId() + ");");
+			st.executeUpdate("INSERT INTO modulo (id, horas, nome, topico, cursoid) "
+				       + "VALUES(" + m.getId() + ", " + m.getHoras() + ", '" + m.getNome() 
+				       + "', '" + m.getTopico() + "', " +  m.getCursoId() + ");");
 			st.close();
 		} catch (SQLException u) {  
 			throw new RuntimeException(u);

@@ -72,9 +72,9 @@ public class DesafioDAO {
 	public void add(Desafio d) {
 		try {  
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO desafio (id, titulo, questao, moduloId) "
+			st.executeUpdate("INSERT INTO desafio (id, titulo, questao, moduloid) "
 				       + "VALUES(" + d.getId() + ", '" + d.getTitulo() + "', '" + d.getQuestao() 
-				       + "', '" +  d.getModuloId() + ");");
+				       + "', " +  d.getModuloId() + ");");
 			st.close();
 		} catch (SQLException u) {  
 			throw new RuntimeException(u);

@@ -84,35 +84,35 @@ public class CursoService {
 //
 //	}
 
-//	public Object remove(Request request, Response response) {
-//        int id = Integer.parseInt(request.params(":id"));
-//
-//        Curso produto = (Curso) CursoDAO.get(id);
-//
-//        if (produto != null) {
-//
-//            CursoDAO.remove(produto);
-//
-//            response.status(200); // success
-//        	return id;
-//        } else {
-//            response.status(404); // 404 Not found
-//            return "Produto não encontrado.";
-//        }
-//	}
-//
+	public Object remove(Request request, Response response) {
+        int id = Integer.parseInt(request.params(":id"));
+
+	    response.header("Access-Control-Allow-Origin", "*");
+
+        if (id >= 0) {
+
+            CursoDAO.remove(id);
+
+            response.status(200); // success
+        	return id;
+        } else {
+            response.status(404); // 404 Not found
+            return "Produto não encontrado.";
+        }
+	}
+
 	public Object getAll(Request request, Response response) {
 		String returnValue = new String();
-		int maxId = 1;
+		int i = 1;
 		returnValue += "{\"cursos\":[";
 		for (Curso curso : CursoDAO.getAll()) {
 			returnValue += ("{\"id\":" + curso.getId() + ",\"idioma\":\"" + curso.getIdioma() + "\",\"autor\":\"" + curso.getAutor() + "\",\"conteudo\":\"" + curso.getConteudo()
 					 + "\",\"url\":\"" + curso.getURL() + "\",\"titulo\":\"" + curso.getTitulo() + "\",\"horas\":\"" + curso.getHoras() + "\",\"avaliacao\":\"" + curso.getAvaliacao()
 					 + "\",\"areaid\":\"" + curso.getAreaId() + "\"}");
-			if(maxId != CursoDAO.getMaxIdCurso()) {
+			if(i != CursoDAO.getNumCursos()) {
 				returnValue += ",";
 			}
-			maxId++;
+			i++;
 		}
 		returnValue += ("]}");
 	    response.header("Access-Control-Allow-Origin", "*");

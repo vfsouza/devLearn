@@ -38,6 +38,8 @@ public class Aplicacao {
         
         get("/cursos", (request, response) -> cursoService.getAll(request, response));
         
+        get("/cursos/delete/:id", (request, response) -> cursoService.remove(request, response));
+        
         
 
 //        get("/produto/:id", (request, response) -> produtoService.get(request, response));

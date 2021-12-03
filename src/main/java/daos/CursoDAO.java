@@ -8,15 +8,28 @@ import java.sql.*;
 public class CursoDAO {
 	private Connection conexao;
 
+	public int getNumCursos() {
+		int numCursos = 0;
+		try {
+			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = st.executeQuery("SELECT COUNT(id) as id FROM curso");
+			rs.last();
+			numCursos = rs.getInt("id");
+			st.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return numCursos;
+	}
+	
 	public int getMaxIdCurso() {
 		int maxId = 0;
 		
 		try {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM curso");
+			ResultSet rs = st.executeQuery("SELECT id FROM curso");
 			rs.last();
 			maxId = rs.getInt("id");
-			System.out.println(maxId);
 			st.close();
 			if (maxId++ >= 0) {
 				return maxId;
@@ -139,5 +152,18 @@ public class CursoDAO {
 			System.err.println(e.getMessage());
 		}
 		return curso;
+	}
+	
+	public void remove(int id) {
+		try {  
+			Statement st = conexao.createStatement();
+			st.executeUpdate("DELETE FROM desafio WHERE cursoid = " + id);
+			st.executeUpdate("DELETE FROM video WHERE cursoid = " + id);
+			st.executeUpdate("DELETE FROM modulo WHERE cursoid = " + id);
+			st.executeUpdate("DELETE FROM curso WHERE id = " + id);
+			st.close();
+		} catch (SQLException u) {  
+			throw new RuntimeException(u);
+		}
 	}
 }

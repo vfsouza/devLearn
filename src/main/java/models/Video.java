@@ -10,6 +10,7 @@ public class Video implements Serializable {
 	private int duracao;
 	private String descricao;
 	private int moduloId;
+	private int cursoId;
 	
 	public Video() {
 		id = -1;
@@ -20,13 +21,15 @@ public class Video implements Serializable {
 		moduloId = -1;
 	}
 
-	public Video(int id, String titulo, String url, int duracao, String descricao, int moduloId) {
+
+	public Video(int id, String titulo, String url, int duracao, String descricao, int moduloId, int cursoId) {
 		this.id = id;
 		this.titulo = titulo;
 		this.url = url;
 		this.duracao = duracao;
 		this.descricao = descricao;
 		this.moduloId = moduloId;
+		this.cursoId = cursoId;
 	}
 
 	public int getId() {
@@ -77,6 +80,14 @@ public class Video implements Serializable {
 		this.moduloId = moduloId;
 	}
 
+	public int getCursoId() {
+		return cursoId;
+	}
+	
+	public void setCursoId(int cursoId) {
+		this.cursoId = cursoId;
+	}
+	
 	public String toString() {
 		return "Video [id=" + id + ", titulo=" + titulo + ", url=" + url + ", duracao=" + duracao + ", descricao="
 				+ descricao + ", moduloId=" + moduloId + "]";

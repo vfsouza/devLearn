@@ -17,6 +17,7 @@ public class DesafioService {
 		String titulo = request.queryParams("titulo").toString();
 		String questao = request.queryParams("questao").toString();
 		int idModulo = Integer.parseInt(request.queryParams("idModulo"));
+		int idCurso = Integer.parseInt(request.queryParams("idCurso"));
 
 	    response.header("Access-Control-Allow-Origin", "*");
 	    response.header("Content-Type", "application/json");
@@ -24,7 +25,7 @@ public class DesafioService {
 
 		int id = DesafioDAO.getMaxIdDesafio();
 		
-		Desafio desafio = new Desafio(id, titulo, questao, idModulo);
+		Desafio desafio = new Desafio(id, titulo, questao, idModulo, idCurso);
 
 		DesafioDAO.add(desafio);
 

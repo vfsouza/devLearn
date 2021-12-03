@@ -19,6 +19,7 @@ public class VideoService {
 		int horas = Integer.parseInt(request.queryParams("horas"));
 		String descricao = request.queryParams("descricao").toString();
 		int idModulo = Integer.parseInt(request.queryParams("idModulo"));
+		int idCurso = Integer.parseInt(request.queryParams("idCurso"));
 
 	    response.header("Access-Control-Allow-Origin", "*");
 	    response.header("Content-Type", "application/json");
@@ -26,11 +27,11 @@ public class VideoService {
 
 		int id = VideoDAO.getMaxIdVideo();
 		
-		Video video = new Video(id, titulo, url, horas, descricao, idModulo);
+		Video video = new Video(id, titulo, url, horas, descricao, idModulo, idCurso);
 
 		VideoDAO.add(video);
 
 		response.status(201);
-		return 0;
+		return id;
 	}
 }

@@ -15,7 +15,7 @@ public class ModuloService {
 	
 	public Object add(Request request, Response response) {
 		int horas = Integer.parseInt(request.queryParams("horas"));
-		String nome = request.queryParams("nome").toString();
+		String nome = request.queryParams("titulo").toString();
 		String topico = request.queryParams("topico").toString();
 		int cursoId = Integer.parseInt(request.queryParams("idCurso"));
 		
@@ -28,7 +28,7 @@ public class ModuloService {
 	    response.header("Access-Control-Allow-Origin", "*");
 	    response.header("Content-Type", "application/json");
 	    response.header("Content-Encoding", "UTF-8");
-		response.status(201);
+		response.status(200);
 		return "{\"id\":" + id + "}";
 	}
 }

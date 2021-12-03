@@ -71,9 +71,9 @@ public class VideoDAO {
 	public void add(Video v) {
 		try {  
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO video (id, titulo, url, duracao, descricao, moduloid) "
+			st.executeUpdate("INSERT INTO video (id, titulo, url, duracao, descricao, moduloid, cursoid) "
 				       + "VALUES(" + v.getId() + ", '" + v.getTitulo() + "', '" + v.getUrl() 
-				       + "', " + v.getDuracao() + ", '" + v.getDescricao() + "', " + v.getModuloId() + ");");
+				       + "', " + v.getDuracao() + ", '" + v.getDescricao() + "', " + v.getModuloId() + ", " + v.getCursoId() + ");");
 			st.close();
 		} catch (SQLException u) {  
 			throw new RuntimeException(u);
@@ -109,7 +109,7 @@ public class VideoDAO {
 			Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			ResultSet rs = st.executeQuery("SELECT * FROM video WHERE moduloId = '" + moduloId + "';");
 			rs.next();
-			video = new Video(rs.getInt("id"), rs.getString("titulo"), rs.getString("url"), rs.getInt("duracao"), rs.getString("descricao"), rs.getInt("moduloId"));
+			video = new Video(rs.getInt("id"), rs.getString("titulo"), rs.getString("url"), rs.getInt("duracao"), rs.getString("descricao"), rs.getInt("moduloid"), rs.getInt("cursoid"));
 			st.close();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());

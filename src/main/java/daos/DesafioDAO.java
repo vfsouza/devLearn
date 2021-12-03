@@ -70,11 +70,12 @@ public class DesafioDAO {
 	}
 	
 	public void add(Desafio d) {
+		System.out.println(d.getCursoid());
 		try {  
 			Statement st = conexao.createStatement();
-			st.executeUpdate("INSERT INTO desafio (id, titulo, questao, moduloid) "
+			st.executeUpdate("INSERT INTO desafio (id, titulo, questao, moduloid, cursoid) "
 				       + "VALUES(" + d.getId() + ", '" + d.getTitulo() + "', '" + d.getQuestao() 
-				       + "', " +  d.getModuloId() + ");");
+				       + "', " +  d.getModuloId() + ", " + d.getCursoid() + ");");
 			st.close();
 		} catch (SQLException u) {  
 			throw new RuntimeException(u);

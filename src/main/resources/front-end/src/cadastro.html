@@ -171,9 +171,18 @@
 				let num = $("#inputMod").val();
 				criaModulos(num);
 			}
+			$("#form-add-modulo").submit((event) => {
+				event.preventDefault();
+				if ($("#form-add-modulo").hasClass("1")) {
+					submitModulo(1);
+				} else {
+					submitModulo(2);
+				}
+			});
 		</script>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="./scripts/CRUDCurso.js"></script>
 		<script src="./scripts/cadastro.js"></script>
 		<script src="./scripts/scripts.js"></script>
 	</body>

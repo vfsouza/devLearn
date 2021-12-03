@@ -1,67 +1,3 @@
-$("#form-add-curso").submit(function (event) {
-	event.preventDefault();
-
-	var titulo = $("#inputTitulo").val();
-	var area = $("#inputArea").val();
-	var autor = $("#inputNome").val();
-	var idioma = $("#inputIdioma").val();
-	var conteudo = $("#inputConteudo").val();
-	var url = $("#inputUrl").val();
-
-	$.ajax({
-		url: "http://localhost:6789/cadastrar/curso",
-		type: "POST",
-		data: {
-			idioma: idioma,
-			titulo: titulo,
-			area: area,
-			autor: autor,
-			conteudo: conteudo,
-			url: url,
-		},
-	}).done(function (data) {
-		$("#cadastro").html("");
-		$("#cadastro").append(`
-         <div class="d-flex justify-content-between">
-            <div class="mb-3 col-8 p-0">
-               <h1 class="mb-4 lh-1 font-weight-bold h2">Cadastro de Módulos</h1>
-            </div>
-            <div class="col-2 p-0">
-               <input value="0" onchange="modulos()" type="number" id="inputMod" name="inputMod" class="form-control cad"/>
-            </div>
-            <div class="col-2 p-0 pl-3">
-               <input type="text" id="#inputId" name="inputId" class="form-control cad" value="${data}" disabled/>
-            </div>
-         </div>
-         
-         <div id="modulos">
-
-         </div>
-      `);
-	});
-});
-
-function criaModulos(num) {
-	console.log("criaModulos: ", num);
-	$("#modulos").html("");
-	for (let i = 0; i < num; i++) {
-		$("#modulos").append(`
-      <div class="card cardMod mb-4" style="z-index: 1">
-         <div class="card-body p-6">
-            <div>
-               <div class="col-6 p-0">
-                  <input id="inputModTitulo${i + 1}" type="text" name="modulo${i + 1}" class="form-control cad" placeholder="Titulo do modulo ${i + 1}" required />
-               </div>
-            </div>
-            <div class="form-group">
-               <div></div>
-            </div>
-         </div>
-      </div>
-      `);
-	}
-}
-
 var res;
 function showCursos() {
 	$.get("http://localhost:6789/cursos", function (data) {
@@ -95,9 +31,9 @@ function buildCards() {
             <div class="card-body p-6">
                <div class="row">
                   <div class="col-12 card-curso">
-                     <div className="col">
+                     <div class="col-12 title-card">
                         <p class="font-weight-bold">Título: ${data.cursos[i].titulo}</p>
-                        <a onclick="removeCurso(${data.cursos[i].id})"><i class="fas fa-times"></i></a>
+                        <a onclick="removeCurso(${data.cursos[i].id})" class="button-trash"><i class="fas fa-trash"></i></a>
                      </div>
                      <div class="d-flex">
                         <div class="col-6">
@@ -152,63 +88,8 @@ function alertMessage() {
 	alert("Não existem mais cursos a carregar!");
 }
 
-function removeCurso(id) {
-	if (confirm("Deseja realmente remover o curso?")) {
-		$.get(`http://localhost:6789/cursos/delete/${id}`, function (data) {
-			console.log(data);
-		});
-	}
-}
-
-function submitModulo(num) {
-	$("#form-add-modulo").preventDefault();
-	let titulo = $("#modTitulo").val();
-	let tituloModulo = $("#inputTitulo").val();
-	let idCurso = $("#inputIdCurso").val();
-	let horas = $("#modHorasMod").val();
-	let topico = $("#inputTopicoMod").val();
-	$.ajax({
-		url: "http://localhost:6789/cadastrar/modulo",
-		type: "GET",
-		data: {
-			idCurso: idCurso,
-			titulo: tituloModulo,
-			horas: horas,
-			topico: topico,
-		},
-	}).complete(function (idModulo) {
-		num == 1
-			? () => {
-					let url = $("#modURL").val();
-					let descricao = $("#modDescricao").val();
-					$.ajax({
-						url: "http://localhost:6789/cadastrar/video",
-						type: "GET",
-						data: {
-							id: idModulo,
-							titulo: titulo,
-							url: url,
-							horas: horas,
-							descricao: descricao,
-						},
-					});
-			  }
-			: () => {
-					let questao = $("#modQuestao").val();
-					$.ajax({
-						url: "http://localhost:6789/cadastrar/desafio",
-						type: "GET",
-						data: {
-							id: idModulo,
-							titulo: titulo,
-							questao: questao,
-						},
-					});
-			  };
-	});
-}
-
 function createContent(num) {
+	$("#form-add-modulo").addClass(`${num}`);
 	$("#modContent").html("");
 	$("#modContent").append(`
       <div class="mb-4 mt-5">
